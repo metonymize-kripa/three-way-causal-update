@@ -41,28 +41,6 @@
     <body>
       <h1>Human In Loop Causal Arxiv Miner</h1>
 
-        <div class="cell">
-          <h2>Informal causal text</h2>
-          <textarea id="cell1Input" placeholder="Enter text here ..."></textarea>
-          <button onclick="copyCell1ToCell2()">Extract Causal Graph</button>
-          <button type="reset" onclick="clearCell1()">Clear</button>
-          <div class="output" id="cell1Output"></div>
-        </div>
-
-        <div class="cell">
-      	  <h2>Formal causal graph</h2>
-          <textarea id="cell2Input" placeholder="Enter graph here..."></textarea>
-          <button onclick="copyCell2ToCell1()">Describe As Text</button>
-          <button type="reset" onclick="clearCell2()">Clear</button>
-          <div class="output" id="cell2Output"></div>
-        </div>
-
-      <div class="cell">
-        <h2>Active Data</h2>
-        <textarea id="commonInput" placeholder="Enter text and data here..."></textarea>
-        <button type="reset" onclick="clearCommonInput()">Clear</button>
-      </div>
-
       <div>
         <h2>Source Data</h2>
         <label for="paper-id">Arxiv Paper ID:</label>
@@ -70,8 +48,29 @@
         <button onclick="getPaper()">Get Paper</button>
         <input type="password" id="openai-api-key" value="">
       </div>
+ 
+      <div class="cell">
+        <h2>Data</h2>
+        <textarea id="commonInput" placeholder="Enter text and data here..."></textarea>
+        <button type="reset" onclick="clearCommonInput()">Clear</button>
+      </div>
+ 
+        <div class="cell">
+          <h2>Informal causal text</h2>
+          <textarea id="cell1Input" placeholder="Enter text here ..."></textarea>
+          <button onclick="copyCell1ToCell2()">Formalize with Data</button>
+          <button type="reset" onclick="clearCell1()">Clear</button>
+          <div class="output" id="cell1Output"></div>
+        </div>
 
-      <script src="app.js"></script>
+        <div class="cell">
+      	  <h2>Formal causal graph</h2>
+          <textarea id="cell2Input" placeholder="Enter graph here..."></textarea>
+          <button onclick="copyCell2ToCell1()">Informalize with Data</button>
+          <button type="reset" onclick="clearCell2()">Clear</button>
+          <div class="output" id="cell2Output"></div>
+        </div>
+    <script src="app.js"></script>
       <script src="openaiutils.js"></script>
     </body>
     </html>

@@ -1,29 +1,32 @@
 async function useOpenaiToConvertTextToGraph(text) {
   const OPENAI_API_KEY = document.getElementById("openai-api-key").value
   const prePrompt = `Identify causal variables and relationships in the text. 
-  Restrict this causal network to only 5 most important node variables.
+  Restrict this causal network to only 5 node variables.
   Convert variable names that have spaces and special characters to camelcase.
   The causal network should be returned in PRETTYPRINT JSON format, with the following structure: 
   {"nodes": "a string of camecase node names, separated by commas",
-"edges": "a string of edges separated by commas, where each edge is a pair of camelcase node names separated by ->"}
+"edges": "a string of edges separated by commas, where each edge is a pair of camelcase node names separated by ->,
+and each edge is on a separate line"}
   EXAMPLE:
   { "nodes": "nodeA,nodeB,nodeC,..."], 
-  "edges": "nodeA->nodeB,nodeA->nodeC,..."}
+  "edges": "nodeA->nodeB,
+            nodeA->nodeC,
+            ..."}
 
   Do not include any natural language, only JSON. 
-  Restrict the graph to the 5 most important nodes where data is likely to be available.
-  Remove edges where a dependent variable precedes an independent variable.
+  Check that only the 5 most important nodes are used. 
   Check nodes and edges for common sense reasoning, eliminating those that are unreasonable.
+  For example,Remove edges where a dependent variable precedes an independent variable. 
 
-  if no answer is possible, return an empty graph: {nodes: "", edges: ""}
-	   
-	Answer: The formal network for the text description: 
+ If no answer is possible, return an empty graph: {nodes: "", edges: ""}. 
+ Otherwise, consistently and precisely complete the following.
+ 
+ The formal network for the text description: 
     <START-TEXT-DESCRIPTION>`;
 
   const postPrompt = `
   <END-TEXT-DESCRIPTION> is:
-     { "nodes": "..."
-     "edges": "..." }`;
+     `;
   const prompt = prePrompt + text + postPrompt;
 
   console.log("PROMPT:",prompt);
@@ -48,18 +51,18 @@ async function useOpenaiToConvertTextToGraph(text) {
 
   async function useOpenaiToConvertGraphToText(graph) {
     const OPENAI_API_KEY = document.getElementById("openai-api-key").value
-    const prePrompt = `Translate into natural language a causal graph and data of the form:
+    const prePrompt = `Translate into natural language a causal graph and related data in the form:
     GRAPH: { "nodes": "nodeA,nodeB,nodeC,..."], 
     "edges": "nodeA->nodeB,nodeA->nodeC,..."}
-    DATA: nodeA and nodeB are independent, various sources
+    DATA: Sentences, JSON, facts. For example, nodeA and nodeB are independent, various sources
     indicate that node D is related to node E, and so on.
     
-    Make sure the natural language description generated is 
-    consistent with any causal knowledge provided 
-    as DATA. For example, if DATA includes nodeC relies on nodeE,
+    Check that the natural language description generated is 
+    consistent with causal constraints in the GRAPH and DATA. 
+    For example, if DATA includes nodeC relies on nodeE,
     then the text generated should include "nodeE causes nodeC".
 
-    Answer in three sections:
+    Answer in three sections, as follows -
     VARIABLES: A natural language listing of the nodes of the graph.
     INDEPENDENT: Only those nodes that are independent.
     DEPENDENTS:Each dependent variable that does not cause any others on a new line.
@@ -68,20 +71,15 @@ async function useOpenaiToConvertTextToGraph(text) {
     the nodes that preceded their prior node, and so on.
     DATA: Summarize and describe relevant data excluding GRAPH JSON.
 
-    Check nodes and edges for common sense reasoning,
-    eliminating those that are unreasonable.
-  
     if no answer is possible, return: 
     PLEASE USE THIS FORMAT:
     { "nodes": "nodeA,nodeB,nodeC,..."], 
     "edges": "nodeA->nodeB,nodeA->nodeC,..."}
 
-    The causal graph and following data is:
+    Otherwise, return the causal graph and following data as:
         `;
   
-    const postPrompt = `
-    The answer is: 
-       VARIABLES:"`
+    const postPrompt = ``
     const prompt = prePrompt + graph + postPrompt;
   
     console.log("PROMPT:",prompt);
