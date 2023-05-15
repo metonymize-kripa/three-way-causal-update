@@ -16,3 +16,31 @@ function copyCell2ToCell1() {
   copyContent('cell2Input', 'commonInput', 'cell1Input');
 }
 
+// Function to clear the content of cell1
+function clearCell1() {
+  document.getElementById('cell1Input').value = '';
+}
+
+// Function to clear the content of cell2
+function clearCell2() {
+  document.getElementById('cell2Input').value = '';
+}
+
+function getPaper() {
+  const paperId = document.getElementById("paper-id").value;
+  fetch(`https://export.arxiv.org/api/query?id_list=${paperId}`)
+    .then(response => response.text())
+    .then(data => {
+      const parser = new DOMParser();
+      const xmlDoc = parser.parseFromString(data, "text/xml");
+      const abstract = xmlDoc.getElementsByTagName("summary")[0].childNodes[0].nodeValue;
+      document.getElementById("commonInput").innerHTML = abstract;
+      processAbstract(abstract);
+    })
+    .catch(error => console.error(error));
+}
+// Function to clear the content of commonInput
+function clearCommonInput() {
+  document.getElementById('commonInput').innerHTML = '';
+}
+

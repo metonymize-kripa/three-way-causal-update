@@ -3,53 +3,75 @@
 <head>
   <meta charset="UTF-8">
   <title>Interactive Web App</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 20px;
-    }
-    .cell {
-      margin-bottom: 20px;
-    }
-    .cell textarea {
-      width: 100%;
-      height: 200px;
-      padding: 5px;
-    }
-    .cell .output {
-      margin-top: 10px;
-      padding: 5px;
-      background-color: #f0f0f0;
-      border: 1px solid #ccc;
-    }
-    .cell .output pre {
-      margin: 0;
-    }
-  </style>
-</head>
-<body>
-  <h1>Ping Pong Web App</h1>
+      <style>
+        body {
+          font-family: Arial, sans-serif;
+          margin: 20px;
+        }
+        .cell {
+          margin-bottom: 20px;
+        }
+        .cell textarea {
+          width: 100%;
+          height: 150px;
+          padding: 5px;
+        }
+        .cell .output {
+          margin-top: 10px;
+          padding: 5px;
+          background-color: #f0f0f0;
+          border: 1px solid #ccc;
+        }
+        .cell .output pre {
+          margin: 0;
+        }
+        button {
+          background-color: #145314;
+          color: #fff;
+          border: none;
+          padding: 5px 10px;
+          margin-right: 10px;
+          cursor: pointer;
+        }
+        button[type="reset"] {
+          background-color: #860a0a;
+        }
+      </style>
+    </head>
+    <body>
+      <h1>Ping Pong Web App</h1>
 
-  <div class="cell">
-    <h2>Ping</h2>
-    <textarea id="cell1Input" placeholder="Enter text here ..."></textarea>
-    <button onclick="copyCell1ToCell2()">Pong</button>
-    <div class="output" id="cell1Output"></div>
-  </div>
+        <div class="cell">
+          <h2>Ping</h2>
+          <textarea id="cell1Input" placeholder="Enter text here ..."></textarea>
+          <button onclick="copyCell1ToCell2()">Pong</button>
+          <button type="reset" onclick="clearCell1()">Clear</button>
+          <div class="output" id="cell1Output"></div>
+        </div>
 
-  <div class="cell">
-	  <h2>Pong</h2>
-    <textarea id="cell2Input" placeholder="Enter code here..."></textarea>
-    <button onclick="copyCell2ToCell1()">Ping</button>
-    <div class="output" id="cell2Output"></div>
-  </div>
+        <div class="cell">
+      	  <h2>Pong</h2>
+          <textarea id="cell2Input" placeholder="Enter code here..."></textarea>
+          <button onclick="copyCell2ToCell1()">Ping</button>
+          <button type="reset" onclick="clearCell2()">Clear</button>
+          <div class="output" id="cell2Output"></div>
+        </div>
 
-  <div class="cell">
-    <h2>Common Ground Data</h2>
-    <textarea id="commonInput" placeholder="Enter data here..."></textarea>
-  </div>
+      <div class="cell">
+        <h2>Common Ground Data</h2>
+        <textarea id="commonInput" placeholder="Enter data here..."></textarea>
+        <button type="reset" onclick="clearCommonInput()">Clear</button>
+      </div>
 
-  <script src="app.js"></script>
-</body>
-</html>
+      <div>
+        <h2>Source Common Data</h2>
+        <label for="paper-id">Arxiv Paper ID:</label>
+        <input type="text" id="paper-id" value="2203.01235">
+        <button onclick="getPaper()">Get Paper</button>
+        <input type="text" id="openai-api-key" value="sk-????">
+      </div>
+
+      <script src="app.js"></script>
+    </body>
+    </html>
 
