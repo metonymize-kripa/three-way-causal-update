@@ -45,3 +45,46 @@ async function useOpenaiToConvertTextToGraph(text) {
     const graphJsonObject = JSON.parse(graphJsonString);
     return graphJsonObject;
   }
+
+  async function useOpenaiToConvertGraphToText(graph) {
+    const OPENAI_API_KEY = document.getElementById("openai-api-key").value
+    const prePrompt = `Translate into natural language a causal graph of the form: 
+    { "nodes": "nodeA,nodeB,nodeC,..."], 
+    "edges": "nodeA->nodeB,nodeA->nodeC,..."}
+    Start by listing the independent variables.
+    Then describe dependent variables as being directly caused by
+    the preceding nodes in each edge, and indirectly caused by
+    the nodes that preceded the prior causes, and so on.
+    Check nodes and edges for common sense reasoning, eliminating those that are unreasonable.
+  
+    if no answer is possible, return: nodes: PLEASE USE FOLLOWING FORMAT:
+    { "nodes": "nodeA,nodeB,nodeC,..."], 
+    "edges": "nodeA->nodeB,nodeA->nodeC,..."}
+         
+      Answer: The informal description for the graph:
+        <START-GRAPH-DESCRIPTION>`;
+  
+    const postPrompt = `
+    <END-GRAPH-DESCRIPTION> is:
+       "The independent variables are: ...
+       The dependent variables are: ..."`
+    const prompt = prePrompt + graph + postPrompt;
+  
+    console.log("PROMPT:",prompt);
+  
+    const response = await fetch("https://api.openai.com/v1/chat/completions", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer " + OPENAI_API_KEY
+      },
+      body: JSON.stringify({
+      "model": "gpt-3.5-turbo",
+      messages: [{role: "user", content: prompt}],
+      })});
+  
+      const data = await response.json();
+      const informalGraphTextString = data.choices[0].message["content"];
+      console.log("INFORMAL GRAPH TEXT STRING:",informalGraphTextString);
+      return informalGraphTextString;
+    }

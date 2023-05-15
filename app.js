@@ -16,8 +16,13 @@ async function copyCell1ToCell2() {
 }
 
 // Function to handle the button click for copying cell2 to cell1
-function copyCell2ToCell1() {
-  copyContent('cell2Input', 'commonInput', 'cell1Input');
+async function copyCell2ToCell1() {
+  const text = document.getElementById("cell2Input").value;
+  const commonInput = document.getElementById("commonInput").value;
+  const textToConvert = text + " " + commonInput;
+  // interpret textToConvert as a graph and convert it to text
+  const informalGraphTextString = await useOpenaiToConvertGraphToText(textToConvert);
+  document.getElementById("cell1Input").value = informalGraphTextString;
 }
 
 // Function to clear the content of cell1
