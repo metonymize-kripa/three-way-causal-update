@@ -7,8 +7,12 @@ function copyContent(sourceCellId, commonInputId, destinationCellId) {
 }
 
 // Function to handle the button click for copying cell1 to cell2
-function copyCell1ToCell2() {
-  copyContent('cell1Input', 'commonInput', 'cell2Input');
+async function copyCell1ToCell2() {
+  const text = document.getElementById("cell1Input").value;
+  const commonInput = document.getElementById("commonInput").value;
+  const textToConvert = text + " " + commonInput;
+  const graphJson = await useOpenaiToConvertTextToGraph(textToConvert);
+  document.getElementById("cell2Input").value = JSON.stringify(graphJson);
 }
 
 // Function to handle the button click for copying cell2 to cell1
@@ -41,6 +45,8 @@ function getPaper() {
 }
 // Function to clear the content of commonInput
 function clearCommonInput() {
-  document.getElementById('commonInput').innerHTML = '';
+  document.getElementById('commonInput').innerHTML = `A causes B
+  B causes C
+  A causes C`;
 }
 
