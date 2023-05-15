@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Interactive Web App</title>
+  <title>Human In Loop Causal Arxiv Miner</title>
       <style>
         body {
           font-family: Arial, sans-serif;
@@ -39,36 +39,36 @@
       </style>
     </head>
     <body>
-      <h1>Ping Pong Web App</h1>
+      <h1>Human In Loop Causal Arxiv Miner</h1>
 
         <div class="cell">
-          <h2>Ping</h2>
+          <h2>Informal causal text</h2>
           <textarea id="cell1Input" placeholder="Enter text here ..."></textarea>
-          <button onclick="copyCell1ToCell2()">Pong</button>
+          <button onclick="copyCell1ToCell2()">Extract Causal Graph</button>
           <button type="reset" onclick="clearCell1()">Clear</button>
           <div class="output" id="cell1Output"></div>
         </div>
 
         <div class="cell">
-      	  <h2>Pong</h2>
-          <textarea id="cell2Input" placeholder="Enter code here..."></textarea>
-          <button onclick="copyCell2ToCell1()">Ping</button>
+      	  <h2>Formal causal graph</h2>
+          <textarea id="cell2Input" placeholder="Enter graph here..."></textarea>
+          <button onclick="copyCell2ToCell1()">Describe As Text</button>
           <button type="reset" onclick="clearCell2()">Clear</button>
           <div class="output" id="cell2Output"></div>
         </div>
 
       <div class="cell">
-        <h2>Common Ground Data</h2>
-        <textarea id="commonInput" placeholder="Enter data here..."></textarea>
+        <h2>Active Data</h2>
+        <textarea id="commonInput" placeholder="Enter text and data here..."></textarea>
         <button type="reset" onclick="clearCommonInput()">Clear</button>
       </div>
 
       <div>
-        <h2>Source Common Data</h2>
+        <h2>Source Data</h2>
         <label for="paper-id">Arxiv Paper ID:</label>
         <input type="text" id="paper-id" value="2203.01235">
         <button onclick="getPaper()">Get Paper</button>
-        <input type="text" id="openai-api-key" value="sk-????">
+        <input type="password" id="openai-api-key" value="">
       </div>
 
       <script src="app.js"></script>

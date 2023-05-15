@@ -19,7 +19,7 @@ async function copyCell1ToCell2() {
 async function copyCell2ToCell1() {
   const text = document.getElementById("cell2Input").value;
   const commonInput = document.getElementById("commonInput").value;
-  const textToConvert = text + " " + commonInput;
+  const textToConvert = text + " COMMON GROUND DATA:" + commonInput;
   // interpret textToConvert as a graph and convert it to text
   const informalGraphTextString = await useOpenaiToConvertGraphToText(textToConvert);
   document.getElementById("cell1Input").value = informalGraphTextString;
@@ -27,15 +27,30 @@ async function copyCell2ToCell1() {
 
 // Function to clear the content of cell1
 function clearCell1() {
-  document.getElementById('cell1Input').value = '';
+  document.getElementById('cell1Input').value = `
+  The independent variables in the graph are 
+  researchProductivity, knowledgeProduction, and humanCapacity. 
+  The dependent variables are data and processOfCreation. 
+  ResearchProductivity directly causes data and knowledgeProduction. 
+  KnowledgeProduction directly causes processOfCreation and 
+  indirectly causes data through its causal relationship with 
+  researchProductivity. 
+  KnowledgeProduction also indirectly causes humanCapacity through its 
+  causal relationship with processOfCreation.`;
 }
 
 // Function to clear the content of cell2
 function clearCell2() {
-  document.getElementById('cell2Input').value = '';
+  document.getElementById('cell2Input').value = `
+  {"nodes":"ResearchProductivity,KnowledgeProduction,ProcessOfCreation,Data,HumanCapacity",
+  "edges":"ResearchProductivity->Data,
+            ResearchProductivity->KnowledgeProduction,
+            KnowledgeProduction->ProcessOfCreation,
+            KnowledgeProduction->Data,
+            ProcessOfCreation->HumanCapacity"}`; 
 }
 
-function getPaper() {
+async function getPaper() {
   const paperId = document.getElementById("paper-id").value;
   fetch(`https://export.arxiv.org/api/query?id_list=${paperId}`)
     .then(response => response.text())
