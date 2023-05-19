@@ -59,7 +59,6 @@ async function getPaper() {
       const xmlDoc = parser.parseFromString(data, "text/xml");
       const abstract = xmlDoc.getElementsByTagName("summary")[0].childNodes[0].nodeValue;
       document.getElementById("commonInput").innerHTML = abstract;
-      processAbstract(abstract);
     })
     .catch(error => console.error(error));
 }

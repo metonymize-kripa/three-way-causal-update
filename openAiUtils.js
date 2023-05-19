@@ -5,19 +5,17 @@ async function useOpenaiToConvertTextToGraph(text) {
   Convert variable names that have spaces and special characters to camelcase.
   The causal network should be returned in PRETTYPRINT JSON format, with the following structure: 
   {"nodes": "a string of camecase node names, separated by commas",
-"edges": "a string of edges separated by commas, where each edge is a pair of camelcase node names separated by ->,
-and each edge is on a separate line"}
+"edges": "a string of edges separated by commas, where each edge is a pair of camelcase node names separated by ->"}
   EXAMPLE:
   { "nodes": "nodeA,nodeB,nodeC,..."], 
   "edges": "nodeA->nodeB,
             nodeA->nodeC,
             ..."}
 
-  Do not include any natural language, only JSON. 
+  Do not include any natural language, only valid JSON. 
   Check that only the 5 most important nodes are used. 
   Check nodes and edges for common sense reasoning, eliminating those that are unreasonable.
   For example,Remove edges where a dependent variable precedes an independent variable. 
-
  If no answer is possible, return an empty graph: {nodes: "", edges: ""}. 
  Otherwise, consistently and precisely complete the following.
  
@@ -25,7 +23,7 @@ and each edge is on a separate line"}
     <START-TEXT-DESCRIPTION>`;
 
   const postPrompt = `
-  <END-TEXT-DESCRIPTION> is:
+  <END-TEXT-DESCRIPTION> is in valid JSON format:
      `;
   const prompt = prePrompt + text + postPrompt;
 
@@ -70,6 +68,9 @@ and each edge is on a separate line"}
     the preceding nodes in each edge, and indirectly caused by
     the nodes that preceded their prior node, and so on.
     DATA: Summarize and describe relevant data excluding GRAPH JSON.
+
+    Check for common sense reasoning, eliminating those that are unreasonable. For example,
+    remove cases where a dependent variable cannot cause an independent variable. 
 
     if no answer is possible, return: 
     PLEASE USE THIS FORMAT:
