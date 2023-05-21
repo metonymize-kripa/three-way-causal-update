@@ -28,26 +28,13 @@ async function copyCell2ToCell1() {
 // Function to clear the content of cell1
 function clearCell1() {
   document.getElementById('cell1Input').value = `
-  The independent variables in the graph are 
-  researchProductivity, knowledgeProduction, and humanCapacity. 
-  The dependent variables are data and processOfCreation. 
-  ResearchProductivity directly causes data and knowledgeProduction. 
-  KnowledgeProduction directly causes processOfCreation and 
-  indirectly causes data through its causal relationship with 
-  researchProductivity. 
-  KnowledgeProduction also indirectly causes humanCapacity through its 
-  causal relationship with processOfCreation.`;
+  We find that higher access to grocery stores, lower access to fast food, higher income and college education are independently associated with higher consumption of fresh fruits and vegetables, lower consumption of fast food and soda, and lower likelihood of being affected by overweight and obesity. However, these associations vary significantly across zip codes with predominantly Black, Hispanic or white populations.`;
 }
 
 // Function to clear the content of cell2
 function clearCell2() {
   document.getElementById('cell2Input').value = `
-  {"nodes":"ResearchProductivity,KnowledgeProduction,ProcessOfCreation,Data,HumanCapacity",
-  "edges":"ResearchProductivity->Data,
-            ResearchProductivity->KnowledgeProduction,
-            KnowledgeProduction->ProcessOfCreation,
-            KnowledgeProduction->Data,
-            ProcessOfCreation->HumanCapacity"}`; 
+  {"nodes":"grocerystoreaccess, fastfoodaccess, income, collegeeducation, FNVconsumption","edges":"grocerystoreaccess->FNVconsumption, fastfoodaccess->FNVconsumption, income->FNVconsumption, collegeeducation->FNVconsumption"}`; 
 }
 
 async function getPaper() {
@@ -64,8 +51,10 @@ async function getPaper() {
 }
 // Function to clear the content of commonInput
 function clearCommonInput() {
-  document.getElementById('commonInput').innerHTML = `A causes B
-  B causes C
-  A causes C`;
+  document.getElementById('commonInput').innerHTML = `For instance, high grocery store access has a significantly larger association with higher fruit and vegetable consumption in zip codes with predominantly Hispanic populations (7.4% difference) and Black populations (10.2% difference) in contrast to zip codes with predominantly white populations (1.7% difference).
+
+  zipcode	age_years	height_in_inches	bmi	fastfood_consumption	Fresh_FV	MedianFamilyIncome	lapophalfshare	no_college	higher_ed_frac	white_frac	black_frac	hispanic_frac	asian_frac	yelp_category_fastfood_frac	male_frac	soda_consumption
+  1001	39.6	65.5	28.3	0.4	0.7	74627.6	0.9	0.7	0.3	0.9	0	0.1	0	0	0.2	0
+  1002	33.6	66.3	26.7	0.2	0.8	92490.4	0.9	0.3	0.7	0.7	0.1	0.1	0.1	0	0.2	0`;
 }
 
