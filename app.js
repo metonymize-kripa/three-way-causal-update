@@ -27,14 +27,12 @@ async function copyCell2ToCell1() {
 
 // Function to clear the content of cell1
 function clearCell1() {
-  document.getElementById('cell1Input').value = `
-  We find that higher access to grocery stores, lower access to fast food, higher income and college education are independently associated with higher consumption of fresh fruits and vegetables, lower consumption of fast food and soda, and lower likelihood of being affected by overweight and obesity. However, these associations vary significantly across zip codes with predominantly Black, Hispanic or white populations.`;
+  document.getElementById('cell1Input').value = `We find that higher access to grocery stores, lower access to fast food, higher income and college education are independently associated with higher consumption of fresh fruits and vegetables, lower consumption of fast food and soda, and lower likelihood of being affected by overweight and obesity. However, these associations vary significantly across zip codes with predominantly Black, Hispanic or white populations.`;
 }
 
 // Function to clear the content of cell2
 function clearCell2() {
-  document.getElementById('cell2Input').value = `
-  {"nodes":"grocerystoreaccess, fastfoodaccess, income, collegeeducation, FNVconsumption","edges":"grocerystoreaccess->FNVconsumption, fastfoodaccess->FNVconsumption, income->FNVconsumption, collegeeducation->FNVconsumption"}`; 
+  document.getElementById('cell2Input').value = `{"nodes":"grocerystoreaccess, fastfoodaccess, income, collegeeducation, FNVconsumption","edges":"grocerystoreaccess->FNVconsumption, fastfoodaccess->FNVconsumption, income->FNVconsumption, collegeeducation->FNVconsumption"}`; 
 }
 
 async function getPaper() {
